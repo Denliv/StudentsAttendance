@@ -2,9 +2,6 @@ package validator.class_validator.subject_request_validator;
 
 import request.subject_request.AddSubjectRequest;
 import validator.class_validator.IClassValidator;
-import validator.simple_validator.DateValidator;
-import validator.simple_validator.IdValidator;
-import validator.simple_validator.ListValidator;
 import validator.simple_validator.NameValidator;
 
 import java.util.ArrayList;

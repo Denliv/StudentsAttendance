@@ -34,7 +34,7 @@ public class StudentRepository implements IStudentRepository {
     public void edit(long id, Student student) throws NotFoundRepository {
         var oldStudent = dataBase.students.get(id);
         if (oldStudent == null) throw new NotFoundRepository();
-        dataBase.students.put(student.getId(), student);
+        dataBase.students.put(id, student);
     }
 
     @Override

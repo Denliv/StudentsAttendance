@@ -1,6 +1,5 @@
 package repository.repository_realization;
 
-import entity.Student;
 import entity.Subject;
 import repository.repository_interface.ISubjectRepository;
 
@@ -27,7 +26,7 @@ public class SubjectRepository implements ISubjectRepository {
 
     @Override
     public void edit(long id, Subject subject) {
-        dataBase.subjects.put(subject.getId(), subject);
+        dataBase.subjects.put(id, subject);
     }
 
     @Override

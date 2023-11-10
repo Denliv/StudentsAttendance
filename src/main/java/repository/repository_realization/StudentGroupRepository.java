@@ -1,7 +1,7 @@
 package repository.repository_realization;
 
-import entity.Lesson;
 import entity.StudentGroup;
+import exception.repository_exception.NotFoundRepository;
 import repository.repository_interface.IStudentGroupRepository;
 
 import java.util.Comparator;
@@ -26,17 +26,23 @@ public class StudentGroupRepository implements IStudentGroupRepository {
     }
 
     @Override
-    public void edit(long id, StudentGroup group) {
-        dataBase.studentGroups.put(group.getId(), group);
+    public void edit(long id, StudentGroup group) throws NotFoundRepository {
+        var oldGroup = dataBase.studentGroups.get(id);
+        if (oldGroup == null) throw new NotFoundRepository();
+        dataBase.studentGroups.put(id, group);
     }
 
     @Override
-    public void delete(long id) {
-        dataBase.studentGroups.remove(id, dataBase.studentGroups.get(id));
+    public void delete(long id) throws NotFoundRepository {
+        var group = dataBase.studentGroups.get(id);
+        if (group == null) throw new NotFoundRepository();
+        dataBase.studentGroups.remove(id, group);
     }
 
     @Override
-    public StudentGroup get(long id) {
-        return dataBase.studentGroups.get(id);
+    public StudentGroup get(long id) throws NotFoundRepository {
+        var group = dataBase.studentGroups.get(id);
+        if (group == null) throw new NotFoundRepository();
+        return group;
     }
 }

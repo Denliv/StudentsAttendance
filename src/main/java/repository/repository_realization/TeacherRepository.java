@@ -1,6 +1,5 @@
 package repository.repository_realization;
 
-import entity.Student;
 import entity.Teacher;
 import repository.repository_interface.ITeacherRepository;
 
@@ -27,7 +26,7 @@ public class TeacherRepository implements ITeacherRepository {
 
     @Override
     public void edit(long id, Teacher teacher) {
-        dataBase.teachers.put(teacher.getId(), teacher);
+        dataBase.teachers.put(id, teacher);
     }
 
     @Override

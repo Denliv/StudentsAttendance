@@ -7,7 +7,7 @@ import java.util.List;
 public interface ILessonRepository {
     long add(Lesson lesson);
 
-    void edit(Lesson lesson);
+    void edit(long id, Lesson lesson);
 
     void deleteById(long id);
 

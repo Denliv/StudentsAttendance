@@ -15,7 +15,7 @@ public class AttendanceListRepository implements IAttendanceListRepository {
 
     @Override
     public void addByLessonId(long lessonId, List<Student> list) {
-        var attendanceList = new AttendanceList(lessonId, dataBase.lessons.get(lessonId), list);
+        var attendanceList = new AttendanceList(lessonId, lessonId, list);
         dataBase.attendanceLists.putIfAbsent(lessonId, attendanceList);
     }
 

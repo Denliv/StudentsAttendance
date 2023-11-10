@@ -21,14 +21,14 @@ public class LessonRepository implements ILessonRepository {
     @Override
     public long add(Lesson lesson) {
         long id = createId();
-        var objectLesson = new Lesson(id, lesson.getSubject(), lesson.getDate(), lesson.getNumber(), lesson.getTeacher(), lesson.getGroup());
+        var objectLesson = new Lesson(id, lesson.getSubject(), lesson.getDate(), lesson.getNumber(), lesson.getTeacherId(), lesson.getGroupId());
         dataBase.lessons.putIfAbsent(id, objectLesson);
         return id;
     }
 
     @Override
-    public void edit(Lesson lesson) {
-        dataBase.lessons.put(lesson.getId(), lesson);
+    public void edit(long id, Lesson lesson) {
+        dataBase.lessons.put(id, lesson);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LessonRepository implements ILessonRepository {
     public List<Lesson> deleteByGroupId(long groupId) {
         var list = new ArrayList<Lesson>();
         for (var i : dataBase.lessons.entrySet()) {
-            if (i.getValue().getGroup().getId().equals(groupId))
+            if (i.getValue().getGroupId() == groupId)
                 list.add(i.getValue());
         }
         return list;
@@ -50,7 +50,7 @@ public class LessonRepository implements ILessonRepository {
     public List<Lesson> deleteByTeacherId(long teacherId) {
         var list = new ArrayList<Lesson>();
         for (var i : dataBase.lessons.entrySet()) {
-            if (i.getValue().getTeacher().getId().equals(teacherId))
+            if (i.getValue().getTeacherId() == teacherId)
                 list.add(i.getValue());
         }
         return list;
@@ -66,7 +66,7 @@ public class LessonRepository implements ILessonRepository {
         var list = new ArrayList<Lesson>();
         for (var i : dataBase.lessons.entrySet()) {
             var temp = i.getValue();
-            if (temp.getGroup().getId().equals(groupId)
+            if (temp.getGroupId() == groupId
                     && temp.getDate().compareTo(startDate) > 0
                     && temp.getDate().compareTo(endDate) < 0)
                 list.add(i.getValue());
@@ -79,7 +79,7 @@ public class LessonRepository implements ILessonRepository {
         var list = new ArrayList<Lesson>();
         for (var i : dataBase.lessons.entrySet()) {
             var temp = i.getValue();
-            if (temp.getTeacher().getId().equals(teacherId)
+            if (temp.getTeacherId() == teacherId
                     && temp.getDate().compareTo(startDate) > 0
                     && temp.getDate().compareTo(endDate) < 0)
                 list.add(i.getValue());

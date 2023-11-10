@@ -7,20 +7,20 @@ public class Lesson {
     private final Subject subject;
     private final String date;
     private final int number;
-    private final Teacher teacher;
-    private final StudentGroup group;
+    private final long teacherId;
+    private final long groupId;
 
-    public Lesson(Long id, Subject subject, String date, int number, Teacher teacher, StudentGroup group) {
+    public Lesson(Long id, Subject subject, String date, int number, long teacherId, long groupId) {
         this.id = id;
         this.subject = subject;
         this.date = date;
         this.number = number;
-        this.teacher = teacher;
-        this.group = group;
+        this.teacherId = teacherId;
+        this.groupId = groupId;
     }
 
     public Lesson(Lesson lesson) {
-        this(lesson.getId(), lesson.getSubject(), lesson.getDate(), lesson.getNumber(), lesson.getTeacher(), lesson.getGroup());
+        this(lesson.getId(), lesson.getSubject(), lesson.getDate(), lesson.getNumber(), lesson.getTeacherId(), lesson.getGroupId());
     }
 
     public Long getId() {
@@ -39,12 +39,12 @@ public class Lesson {
         return number;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public long getTeacherId() {
+        return teacherId;
     }
 
-    public StudentGroup getGroup() {
-        return group;
+    public long getGroupId() {
+        return groupId;
     }
 
     @Override
@@ -52,11 +52,11 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
-        return number == lesson.number && Objects.equals(id, lesson.id) && Objects.equals(subject, lesson.subject) && Objects.equals(date, lesson.date) && Objects.equals(teacher, lesson.teacher) && Objects.equals(group, lesson.group);
+        return number == lesson.number && teacherId == lesson.teacherId && Objects.equals(id, lesson.id) && Objects.equals(subject, lesson.subject) && Objects.equals(date, lesson.date) && Objects.equals(groupId, lesson.groupId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subject, date, number, teacher, group);
+        return Objects.hash(id, subject, date, number, teacherId, groupId);
     }
 }

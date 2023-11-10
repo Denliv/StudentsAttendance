@@ -4,7 +4,6 @@ import request.lesson_request.GetLessonsByGroupRequest;
 import validator.class_validator.IClassValidator;
 import validator.simple_validator.DateValidator;
 import validator.simple_validator.IdValidator;
-import validator.simple_validator.ListValidator;
 
 import java.util.ArrayList;
 import java.util.List;
