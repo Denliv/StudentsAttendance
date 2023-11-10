@@ -3,8 +3,8 @@ package response;
 import java.util.List;
 
 public class AuxiliaryResponseEntity<T> {
-    private T response;
-    private List<String> errors;
+    private final T response;
+    private final List<String> errors;
 
     public AuxiliaryResponseEntity(T response, List<String> errors) {
         this.response = response;

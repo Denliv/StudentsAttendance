@@ -10,7 +10,10 @@ import response.student_group_response.GetStudentGroupByIdResponse;
 
 public interface IStudentGroupService {
     AddStudentGroupResponse add(AddStudentGroupRequest request);
+
     void delete(DeleteStudentGroupRequest request) throws NotFoundService;
+
     void edit(EditStudentGroupRequest request) throws NotFoundService;
+
     GetStudentGroupByIdResponse getById(GetStudentGroupByIdRequest request) throws NotFoundService;
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class DeleteLessonRequestValidator implements IClassValidator<DeleteLessonRequest> {
     private final IdValidator idValidator;
+
     public DeleteLessonRequestValidator(IdValidator idValidator) {
         this.idValidator = idValidator;
     }
