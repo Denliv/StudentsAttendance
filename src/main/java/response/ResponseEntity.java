@@ -12,4 +12,12 @@ public class ResponseEntity<T> {
     public ResponseEntity(short status) {
         this(null, status);
     }
+
+    public short getStatus() {
+        return status;
+    }
+
+    public T getResponse() {
+        return response;
+    }
 }

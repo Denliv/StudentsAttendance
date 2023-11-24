@@ -18,4 +18,12 @@ public class AuxiliaryResponseEntity<T> {
     public AuxiliaryResponseEntity(List<String> errors) {
         this(null, errors);
     }
+
+    public T getResponse() {
+        return response;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
 }
