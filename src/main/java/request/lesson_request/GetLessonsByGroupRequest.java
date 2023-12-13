@@ -1,10 +1,13 @@
 package request.lesson_request;
 
+import java.beans.ConstructorProperties;
+
 public class GetLessonsByGroupRequest {
     private final String startDate;
     private final String endDate;
     private final long groupId;
 
+    @ConstructorProperties({"startDate", "endDate", "groupId"})
     public GetLessonsByGroupRequest(String startDate, String endDate, long groupId) {
         this.startDate = startDate;
         this.endDate = endDate;

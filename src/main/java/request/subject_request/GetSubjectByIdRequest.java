@@ -1,8 +1,11 @@
 package request.subject_request;
 
+import java.beans.ConstructorProperties;
+
 public class GetSubjectByIdRequest {
     private final long id;
 
+    @ConstructorProperties({"id"})
     public GetSubjectByIdRequest(long id) {
         this.id = id;
     }

@@ -1,5 +1,6 @@
 package request.lesson_request;
 
+import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class AddLessonRequest {
     private final long groupId;
     private final List<Long> attendanceList;
 
+    @ConstructorProperties({"subjectId", "date", "number", "teacherId", "groupId", "attendanceList"})
     public AddLessonRequest(long subjectId, String date, int number, long teacherId, long groupId, List<Long> attendanceList) {
         this.subjectId = subjectId;
         this.date = date;

@@ -12,6 +12,10 @@ public class AddStudentRequestValidator implements IClassValidator<AddStudentReq
     private final NameValidator nameValidator;
     private final IdValidator idValidator;
 
+    public AddStudentRequestValidator() {
+        this(new NameValidator(), new IdValidator());
+    }
+
     public AddStudentRequestValidator(NameValidator nameValidator, IdValidator idValidator) {
         this.nameValidator = nameValidator;
         this.idValidator = idValidator;

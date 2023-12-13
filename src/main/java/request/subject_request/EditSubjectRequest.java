@@ -1,9 +1,12 @@
 package request.subject_request;
 
+import java.beans.ConstructorProperties;
+
 public class EditSubjectRequest {
     private final long id;
     private final String name;
 
+    @ConstructorProperties({"id", "name"})
     public EditSubjectRequest(long id, String name) {
         this.id = id;
         this.name = name;

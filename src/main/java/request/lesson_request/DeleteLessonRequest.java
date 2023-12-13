@@ -1,8 +1,11 @@
 package request.lesson_request;
 
+import java.beans.ConstructorProperties;
+
 public class DeleteLessonRequest {
     private final long id;
 
+    @ConstructorProperties({"id"})
     public DeleteLessonRequest(long id) {
         this.id = id;
     }

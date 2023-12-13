@@ -17,4 +17,12 @@ public class AddStudentGroupResponse {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "AddStudentGroupResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

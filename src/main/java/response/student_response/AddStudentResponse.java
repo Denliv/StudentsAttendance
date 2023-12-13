@@ -42,4 +42,16 @@ public class AddStudentResponse {
     public long getGroupId() {
         return groupId;
     }
+
+    @Override
+    public String toString() {
+        return "AddStudentResponse{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", status=" + status +
+                ", groupId=" + groupId +
+                '}';
+    }
 }

@@ -1,10 +1,13 @@
 package request.teacher_request;
 
+import java.beans.ConstructorProperties;
+
 public class AddTeacherRequest {
     private final String lastName;
     private final String firstName;
     private final String middleName;
 
+    @ConstructorProperties({"lastName", "firstName", "middleName"})
     public AddTeacherRequest(String lastName, String firstName, String middleName) {
         this.lastName = lastName;
         this.firstName = firstName;

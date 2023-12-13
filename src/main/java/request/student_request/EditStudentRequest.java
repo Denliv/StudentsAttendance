@@ -2,6 +2,8 @@ package request.student_request;
 
 import entity.StudentStatus;
 
+import java.beans.ConstructorProperties;
+
 public class EditStudentRequest {
     private final long id;
     private final String lastName;
@@ -10,6 +12,7 @@ public class EditStudentRequest {
     private final StudentStatus status;
     private final long groupId;
 
+    @ConstructorProperties({"id", "lastName", "firstName", "middleName", "status", "group"})
     public EditStudentRequest(long id, String lastName, String firstName, String middleName, StudentStatus status, long group) {
         this.id = id;
         this.lastName = lastName;
