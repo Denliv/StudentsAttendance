@@ -1,16 +1,11 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.StudentStatus;
+import entity.*;
 import org.junit.Test;
-import request.student_request.AddStudentRequest;
-import request.student_request.DeleteStudentRequest;
-import request.student_request.EditStudentRequest;
-import request.student_request.GetStudentByIdRequest;
-import response.AuxiliaryResponseEntity;
-import response.ResponseEntity;
-import response.student_response.AddStudentResponse;
-import response.student_response.GetStudentByIdResponse;
+import request.student_request.*;
+import response.*;
+import response.student_response.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -146,12 +141,60 @@ public class ServerTest {
     }
 
     @Test
-    public void acceptTest_Student_Invalid() {
+    public void acceptTest_AddStudent_Invalid() throws JsonProcessingException {
+        //Arrange
+        String lastName = null;
+        String firstName = "Ivan";
+        String middleName = "Ivan";
+        StudentStatus status = StudentStatus.Studying;
+        long groupId = 101L;
 
+        //Act - Adding Invalid Student
+        AddStudentRequest addStudentRequest = new AddStudentRequest(lastName, firstName, middleName, status, groupId);
+        String jsonAddStudentRequest = objectMapper.writeValueAsString(addStudentRequest);
+        var addStudentAnswer = server.accept("addStudent", jsonAddStudentRequest);
+        var addStudentResponse =
+                objectMapper.readValue(addStudentAnswer, new TypeReference<ResponseEntity<AuxiliaryResponseEntity<AddStudentResponse>>>() {});
+
+        //Check - Error
+        assertEquals(400, addStudentResponse.getStatus());
     }
 
     @Test
-    public void acceptTest_StudentGroup() {
+    public void acceptTest_EditStudent_Invalid() throws JsonProcessingException {
+        //Arrange
+        var id = 1;
+        String changedLastName = "Abc";
+        String changedFirstName = "Abc";
+        String changedMiddleName = "Abc";
+        StudentStatus changedStatus = StudentStatus.Academic_Leave;
+        long groupId = 101L;
 
+        //Act - Editing Student
+        EditStudentRequest editStudentRequest = new EditStudentRequest(
+                id, changedLastName, changedFirstName, changedMiddleName, changedStatus, groupId);
+        String jsonEditStudentRequest = objectMapper.writeValueAsString(editStudentRequest);
+        var editStudentAnswer = server.accept("editStudent", jsonEditStudentRequest);
+        var editStudentResponse =
+                objectMapper.readValue(editStudentAnswer, new TypeReference<ResponseEntity<AuxiliaryResponseEntity<Boolean>>>() {});
+
+        //Check - Error
+        assertEquals(404, editStudentResponse.getStatus());
+    }
+
+    @Test
+    public void acceptTest_DeleteStudent_Invalid() throws JsonProcessingException {
+        //Arrange - Set Non Existent ID
+        var id = 1;
+
+        //Act - Deleting Student
+        DeleteStudentRequest deleteStudentRequest = new DeleteStudentRequest(id);
+        String jsonDeleteStudentRequest = objectMapper.writeValueAsString(deleteStudentRequest);
+        var deleteStudentAnswer = server.accept("deleteStudent", jsonDeleteStudentRequest);
+        var deleteStudentResponse =
+                objectMapper.readValue(deleteStudentAnswer, new TypeReference<ResponseEntity<AuxiliaryResponseEntity<Boolean>>>() {});
+
+        //Check - Error
+        assertEquals(404, deleteStudentResponse.getStatus());
     }
 }

@@ -24,7 +24,7 @@ public class NameValidator {
     }
 
     public NameValidator isLessThanMaxLen(String str, int maxLen, List<String> errors, String fieldName) {
-        if (str.length() > maxLen) {
+        if (str != null && str.length() > maxLen) {
             errors.add(fieldName + " should be less than " + maxLen + "symbols");
         }
         return this;

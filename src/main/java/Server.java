@@ -1,25 +1,14 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controller.StudentController;
-import controller.StudentGroupController;
-import repository.repository_realization.DataBase;
-import repository.repository_realization.StudentGroupRepository;
-import repository.repository_realization.StudentRepository;
-import request.student_group_request.AddStudentGroupRequest;
-import request.student_group_request.DeleteStudentGroupRequest;
-import request.student_group_request.EditStudentGroupRequest;
-import request.student_group_request.GetStudentGroupByIdRequest;
+import controller.*;
+import repository.repository_realization.*;
+import request.student_group_request.*;
 import request.student_request.*;
-import response.ResponseEntity;
-import service.service_realization.StudentGroupService;
-import service.service_realization.StudentService;
-import validator.class_validator.student_group_request_validator.AddStudentGroupRequestValidator;
-import validator.class_validator.student_group_request_validator.DeleteStudentGroupRequestValidator;
-import validator.class_validator.student_group_request_validator.EditStudentGroupRequestValidator;
-import validator.class_validator.student_group_request_validator.GetStudentGroupByIdRequestValidator;
+import response.*;
+import service.service_realization.*;
+import validator.class_validator.student_group_request_validator.*;
 import validator.class_validator.student_request_validator.*;
-import validator.simple_validator.IdValidator;
-import validator.simple_validator.NameValidator;
+import validator.simple_validator.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,18 +20,19 @@ public class Server {
     private DataBase dataBase;
 
     private void init() {
+        ObjectMapper objectMapper = new ObjectMapper();
         this.processes = new HashMap<>();
         this.dataBase = new DataBase();
         processes.put("addStudent", json -> {
             StudentController controller = new StudentController(
-                    new AddStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new DeleteStudentRequestValidator(new IdValidator()),
-                    new EditStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new EditStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new GetStudentByIdRequestValidator(new IdValidator()),
                     new GetStudentsByGroupRequestValidator(new IdValidator()),
                     new StudentService(new StudentRepository(dataBase), new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.addStudent(new ObjectMapper().readValue(json, AddStudentRequest.class));
+                var response = controller.addStudent(objectMapper.readValue(json, AddStudentRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 throw new IllegalArgumentException(e);
@@ -50,14 +40,14 @@ public class Server {
         });
         processes.put("deleteStudent", json -> {
             StudentController controller = new StudentController(
-                    new AddStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new DeleteStudentRequestValidator(new IdValidator()),
-                    new EditStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new EditStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new GetStudentByIdRequestValidator(new IdValidator()),
                     new GetStudentsByGroupRequestValidator(new IdValidator()),
                     new StudentService(new StudentRepository(dataBase), new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.deleteStudent(new ObjectMapper().readValue(json, DeleteStudentRequest.class));
+                var response = controller.deleteStudent(objectMapper.readValue(json, DeleteStudentRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -65,14 +55,14 @@ public class Server {
         });
         processes.put("editStudent", json -> {
             StudentController controller = new StudentController(
-                    new AddStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new DeleteStudentRequestValidator(new IdValidator()),
-                    new EditStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new EditStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new GetStudentByIdRequestValidator(new IdValidator()),
                     new GetStudentsByGroupRequestValidator(new IdValidator()),
                     new StudentService(new StudentRepository(dataBase), new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.editStudent(new ObjectMapper().readValue(json, EditStudentRequest.class));
+                var response = controller.editStudent(objectMapper.readValue(json, EditStudentRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -80,14 +70,14 @@ public class Server {
         });
         processes.put("getStudentById", json -> {
             StudentController controller = new StudentController(
-                    new AddStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new DeleteStudentRequestValidator(new IdValidator()),
-                    new EditStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new EditStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new GetStudentByIdRequestValidator(new IdValidator()),
                     new GetStudentsByGroupRequestValidator(new IdValidator()),
                     new StudentService(new StudentRepository(dataBase), new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.getStudentById(new ObjectMapper().readValue(json, GetStudentByIdRequest.class));
+                var response = controller.getStudentById(objectMapper.readValue(json, GetStudentByIdRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -95,14 +85,14 @@ public class Server {
         });
         processes.put("getStudentsByGroup", json -> {
             StudentController controller = new StudentController(
-                    new AddStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new DeleteStudentRequestValidator(new IdValidator()),
-                    new EditStudentRequestValidator(new NameValidator(), new IdValidator()),
+                    new EditStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
                     new GetStudentByIdRequestValidator(new IdValidator()),
                     new GetStudentsByGroupRequestValidator(new IdValidator()),
                     new StudentService(new StudentRepository(dataBase), new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.getStudentsByGroup(new ObjectMapper().readValue(json, GetStudentsByGroupRequest.class));
+                var response = controller.getStudentsByGroup(objectMapper.readValue(json, GetStudentsByGroupRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -116,7 +106,7 @@ public class Server {
                     new GetStudentGroupByIdRequestValidator(new IdValidator()),
                     new StudentGroupService(new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.addStudentGroup(new ObjectMapper().readValue(json, AddStudentGroupRequest.class));
+                var response = controller.addStudentGroup(objectMapper.readValue(json, AddStudentGroupRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -130,7 +120,7 @@ public class Server {
                     new GetStudentGroupByIdRequestValidator(new IdValidator()),
                     new StudentGroupService(new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.deleteStudentGroup(new ObjectMapper().readValue(json, DeleteStudentGroupRequest.class));
+                var response = controller.deleteStudentGroup(objectMapper.readValue(json, DeleteStudentGroupRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -144,7 +134,7 @@ public class Server {
                     new GetStudentGroupByIdRequestValidator(new IdValidator()),
                     new StudentGroupService(new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.editStudentGroup(new ObjectMapper().readValue(json, EditStudentGroupRequest.class));
+                var response = controller.editStudentGroup(objectMapper.readValue(json, EditStudentGroupRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
@@ -158,7 +148,7 @@ public class Server {
                     new GetStudentGroupByIdRequestValidator(new IdValidator()),
                     new StudentGroupService(new StudentGroupRepository(dataBase)));
             try {
-                var response = controller.getStudentGroupById(new ObjectMapper().readValue(json, GetStudentGroupByIdRequest.class));
+                var response = controller.getStudentGroupById(objectMapper.readValue(json, GetStudentGroupByIdRequest.class));
                 return new ObjectMapper().writeValueAsString(response);
             } catch (JsonProcessingException e) {
                 return "";
