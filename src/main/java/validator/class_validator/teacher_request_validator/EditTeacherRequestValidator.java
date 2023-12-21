@@ -21,13 +21,10 @@ public class EditTeacherRequestValidator implements IClassValidator<EditTeacherR
     public List<String> validate(EditTeacherRequest request) {
         var maxLen = 100;
         var list = new ArrayList<String>();
-        if (!idValidator.validate(request.getId())) list.add("Id should be >= 0");
-        if (!nameValidator.validate(request.getLastName(), maxLen))
-            list.add("LastName should be not null and less than " + maxLen + " symbols");
-        if (!nameValidator.validate(request.getFirstName(), maxLen))
-            list.add("FirstName should be not null and less than " + maxLen + " symbols");
-        if (!nameValidator.validate(request.getMiddleName(), maxLen))
-            list.add("MiddleName should be not null and less than " + maxLen + " symbols");
+        idValidator.isPositive(request.getId(), list, "Id");
+        nameValidator.isNotNullOrEmptyAndLessThanMaxLen(request.getLastName(), maxLen, list, "LastName")
+                .isNotNullOrEmptyAndLessThanMaxLen(request.getFirstName(), maxLen, list, "FirstName")
+                .isNotNullOrEmptyAndLessThanMaxLen(request.getMiddleName(), maxLen, list, "MiddleName");
         return list;
     }
 }

@@ -2,8 +2,10 @@ package response.lesson_response;
 
 import entity.Student;
 
+import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GetLessonByIdResponse {
     private final long id;
@@ -13,11 +15,12 @@ public class GetLessonByIdResponse {
     private final String teacherLastName;
     private final String teacherFirstName;
     private final String teacherMiddleName;
-    private final String groupName;
+    private final long groupId;
     private final List<Student> students = new ArrayList<>();
 
+    @ConstructorProperties({"id", "subjectName", "date", "number", "teacherLastName", "teacherFirstName", "teacherMiddleName", "groupId", "list"})
     public GetLessonByIdResponse(long id, String subjectName, String date, int number, String teacherLastName,
-                                 String teacherFirstName, String teacherMiddleName, String groupName, List<Student> list) {
+                                 String teacherFirstName, String teacherMiddleName, long groupId, List<Student> list) {
         this.id = id;
         this.subjectName = subjectName;
         this.date = date;
@@ -25,7 +28,7 @@ public class GetLessonByIdResponse {
         this.teacherLastName = teacherLastName;
         this.teacherFirstName = teacherFirstName;
         this.teacherMiddleName = teacherMiddleName;
-        this.groupName = groupName;
+        this.groupId = groupId;
         students.addAll(list);
     }
 
@@ -57,11 +60,24 @@ public class GetLessonByIdResponse {
         return teacherMiddleName;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public long getGroupId() {
+        return groupId;
     }
 
     public List<Student> getStudents() {
         return students;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GetLessonByIdResponse that = (GetLessonByIdResponse) o;
+        return id == that.id && number == that.number && groupId == that.groupId && Objects.equals(subjectName, that.subjectName) && Objects.equals(date, that.date) && Objects.equals(teacherLastName, that.teacherLastName) && Objects.equals(teacherFirstName, that.teacherFirstName) && Objects.equals(teacherMiddleName, that.teacherMiddleName) && Objects.equals(students, that.students);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, subjectName, date, number, teacherLastName, teacherFirstName, teacherMiddleName, groupId, students);
     }
 }

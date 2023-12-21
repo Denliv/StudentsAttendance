@@ -18,8 +18,7 @@ public class AddSubjectRequestValidator implements IClassValidator<AddSubjectReq
     public List<String> validate(AddSubjectRequest request) {
         var maxLen = 100;
         var list = new ArrayList<String>();
-        if (!nameValidator.validate(request.getName(), maxLen))
-            list.add("Name should be not null and less than " + maxLen + " symbols");
+        nameValidator.isNotNullOrEmptyAndLessThanMaxLen(request.getName(), maxLen, list, "Name");
         return list;
     }
 }

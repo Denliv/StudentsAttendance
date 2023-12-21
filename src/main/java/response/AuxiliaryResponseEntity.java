@@ -2,6 +2,7 @@ package response;
 
 import java.beans.ConstructorProperties;
 import java.util.List;
+import java.util.Objects;
 
 public class AuxiliaryResponseEntity<T> {
     private final T response;
@@ -27,5 +28,18 @@ public class AuxiliaryResponseEntity<T> {
 
     public List<String> getErrors() {
         return errors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuxiliaryResponseEntity<?> that = (AuxiliaryResponseEntity<?>) o;
+        return Objects.equals(response, that.response) && Objects.equals(errors, that.errors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(response, errors);
     }
 }

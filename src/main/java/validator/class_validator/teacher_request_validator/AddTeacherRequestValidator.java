@@ -18,12 +18,9 @@ public class AddTeacherRequestValidator implements IClassValidator<AddTeacherReq
     public List<String> validate(AddTeacherRequest request) {
         var maxLen = 100;
         var list = new ArrayList<String>();
-        if (!nameValidator.validate(request.getLastName(), maxLen))
-            list.add("LastName should be not null and less than " + maxLen + " symbols");
-        if (!nameValidator.validate(request.getFirstName(), maxLen))
-            list.add("FirstName should be not null and less than " + maxLen + " symbols");
-        if (!nameValidator.validate(request.getMiddleName(), maxLen))
-            list.add("MiddleName should be not null and less than " + maxLen + " symbols");
+        nameValidator.isNotNullOrEmptyAndLessThanMaxLen(request.getLastName(), maxLen, list, "LastName")
+                .isNotNullOrEmptyAndLessThanMaxLen(request.getFirstName(), maxLen, list, "FirstName")
+                .isNotNullOrEmptyAndLessThanMaxLen(request.getMiddleName(), maxLen, list, "MiddleName");
         return list;
     }
 }

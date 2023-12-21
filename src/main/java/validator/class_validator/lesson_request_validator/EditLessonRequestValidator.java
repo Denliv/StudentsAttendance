@@ -20,13 +20,12 @@ public class EditLessonRequestValidator implements IClassValidator<EditLessonReq
     @Override
     public List<String> validate(EditLessonRequest request) {
         var list = new ArrayList<String>();
-        if (!idValidator.validate(request.getId())) list.add("Id should be >= 0");
-        if (!idValidator.validate(request.getSubjectId())) list.add("SubjectId should be >= 0");
-        if (!dateValidator.validate(request.getDate()))
-            list.add("Date should be in dd/mm/yyyy format with correct date");
-        if (!idValidator.validate(request.getNumber())) list.add("Lesson number should be >= 0");
-        if (!idValidator.validate(request.getTeacherId())) list.add("TeacherId should be >= 0");
-        if (!idValidator.validate(request.getGroupId())) list.add("GroupId should be >= 0");
+        idValidator.isPositive(request.getId(), list, "Id")
+                .isPositive(request.getSubjectId(), list, "SubjectId")
+                .isPositive(request.getNumber(), list, "Number")
+                .isPositive(request.getTeacherId(), list, "TeacherId")
+                .isPositive(request.getGroupId(), list, "GroupId");
+        dateValidator.isCorrectDate(request.getDate(), list, "Date");
         return list;
     }
 }

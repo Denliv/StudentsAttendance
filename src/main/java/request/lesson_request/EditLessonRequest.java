@@ -1,6 +1,7 @@
 package request.lesson_request;
 
 import java.beans.ConstructorProperties;
+import java.util.Objects;
 
 public class EditLessonRequest {
     private final long id;
@@ -42,5 +43,18 @@ public class EditLessonRequest {
 
     public long getGroupId() {
         return groupId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EditLessonRequest that = (EditLessonRequest) o;
+        return id == that.id && subjectId == that.subjectId && number == that.number && teacherId == that.teacherId && groupId == that.groupId && Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, subjectId, date, number, teacherId, groupId);
     }
 }

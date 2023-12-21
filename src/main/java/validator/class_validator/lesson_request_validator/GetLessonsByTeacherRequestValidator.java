@@ -20,11 +20,9 @@ public class GetLessonsByTeacherRequestValidator implements IClassValidator<GetL
     @Override
     public List<String> validate(GetLessonsByTeacherRequest request) {
         var list = new ArrayList<String>();
-        if (!dateValidator.validate(request.getStartDate()))
-            list.add("StartDate should be in dd/mm/yyyy format with correct date");
-        if (!dateValidator.validate(request.getEndDate()))
-            list.add("EndDate should be in dd/mm/yyyy format with correct date");
-        if (!idValidator.validate(request.getTeacherId())) list.add("TeacherId should be >= 0");
+        dateValidator.isCorrectDate(request.getStartDate(), list, "StartDate")
+                .isCorrectDate(request.getEndDate(), list, "EndDate");
+        idValidator.isPositive(request.getTeacherId(), list, "TeacherId");
         return list;
     }
 }

@@ -3,6 +3,7 @@ package service.service_realization;
 import entity.Student;
 import exception.repository_exception.NotFoundRepository;
 import exception.service_exception.NotFoundService;
+import repository.repository_realization.StudentGroupRepository;
 import repository.repository_realization.StudentRepository;
 import request.student_request.*;
 import response.student_response.AddStudentResponse;
@@ -14,8 +15,11 @@ import java.util.Collection;
 public class StudentService implements IStudentService {
     private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    private final StudentGroupRepository studentGroupRepository;
+
+    public StudentService(StudentRepository studentRepository, StudentGroupRepository studentGroupRepository) {
         this.studentRepository = studentRepository;
+        this.studentGroupRepository = studentGroupRepository;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class StudentService implements IStudentService {
     @Override
     public void edit(EditStudentRequest request) throws NotFoundService {
         try {
-            var student = new Student(null, request.getLastName(), request.getFirstName(), request.getMiddleName(),
+            var student = new Student(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(),
                     request.getStatus(), request.getGroupId());
             studentRepository.edit(request.getId(), student);
         } catch (NotFoundRepository ex) {

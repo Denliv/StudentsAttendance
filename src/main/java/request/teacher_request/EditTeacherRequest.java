@@ -1,6 +1,7 @@
 package request.teacher_request;
 
 import java.beans.ConstructorProperties;
+import java.util.Objects;
 
 public class EditTeacherRequest {
     private final Long id;
@@ -30,5 +31,18 @@ public class EditTeacherRequest {
 
     public String getMiddleName() {
         return middleName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EditTeacherRequest that = (EditTeacherRequest) o;
+        return Objects.equals(id, that.id) && Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, lastName, firstName, middleName);
     }
 }

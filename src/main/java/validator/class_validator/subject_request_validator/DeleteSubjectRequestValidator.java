@@ -17,7 +17,7 @@ public class DeleteSubjectRequestValidator implements IClassValidator<DeleteSubj
     @Override
     public List<String> validate(DeleteSubjectRequest request) {
         var list = new ArrayList<String>();
-        if (!idValidator.validate(request.getId())) list.add("Id should be >= 0");
+        idValidator.isPositive(request.getId(), list, "Id");
         return list;
     }
 }

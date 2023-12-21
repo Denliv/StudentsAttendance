@@ -21,9 +21,8 @@ public class EditStudentGroupRequestValidator implements IClassValidator<EditStu
     public List<String> validate(EditStudentGroupRequest request) {
         var maxLen = 100;
         var list = new ArrayList<String>();
-        if (!idValidator.validate(request.getId())) list.add("Id should be >= 0");
-        if (!nameValidator.validate(request.getName(), maxLen))
-            list.add("Name should be not null and less than " + maxLen + " symbols");
+        idValidator.isPositive(request.getId(), list, "Id");
+        nameValidator.isNotNullOrEmptyAndLessThanMaxLen(request.getName(), maxLen, list, "Name");
         return list;
     }
 }

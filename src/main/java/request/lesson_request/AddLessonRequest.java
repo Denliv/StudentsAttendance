@@ -3,6 +3,7 @@ package request.lesson_request;
 import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddLessonRequest {
     private final long subjectId;
@@ -45,5 +46,18 @@ public class AddLessonRequest {
 
     public List<Long> getAttendanceList() {
         return attendanceList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddLessonRequest that = (AddLessonRequest) o;
+        return subjectId == that.subjectId && number == that.number && teacherId == that.teacherId && groupId == that.groupId && Objects.equals(date, that.date) && Objects.equals(attendanceList, that.attendanceList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subjectId, date, number, teacherId, groupId, attendanceList);
     }
 }

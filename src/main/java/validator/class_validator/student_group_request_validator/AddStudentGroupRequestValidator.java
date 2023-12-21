@@ -18,8 +18,7 @@ public class AddStudentGroupRequestValidator implements IClassValidator<AddStude
     public List<String> validate(AddStudentGroupRequest request) {
         var maxLen = 100;
         var list = new ArrayList<String>();
-        if (!nameValidator.validate(request.getName(), maxLen))
-            list.add("Name should be not null and less than " + maxLen + " symbols");
+        nameValidator.isNotNullOrEmptyAndLessThanMaxLen(request.getName(), maxLen, list, "Name");
         return list;
     }
 }

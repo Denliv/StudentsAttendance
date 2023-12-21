@@ -20,11 +20,9 @@ public class GetLessonsByGroupRequestValidator implements IClassValidator<GetLes
     @Override
     public List<String> validate(GetLessonsByGroupRequest request) {
         var list = new ArrayList<String>();
-        if (!dateValidator.validate(request.getStartDate()))
-            list.add("StartDate should be in dd/mm/yyyy format with correct date");
-        if (!dateValidator.validate(request.getEndDate()))
-            list.add("EndDate should be in dd/mm/yyyy format with correct date");
-        if (!idValidator.validate(request.getGroupId())) list.add("GroupId should be >= 0");
+        dateValidator.isCorrectDate(request.getStartDate(), list, "StartDate")
+                .isCorrectDate(request.getEndDate(), list, "EndDate");
+        idValidator.isPositive(request.getGroupId(), list, "GroupId");
         return list;
     }
 }

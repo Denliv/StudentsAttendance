@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.List;
 
 public class DateValidator {
-    public boolean validate(String date) {
+    public DateValidator isCorrectDate(String date, List<String> errors, String fieldName) {
         try {
             LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy").withResolverStyle(ResolverStyle.STRICT));
-            return true;
+            return this;
         } catch (DateTimeParseException ex) {
-            return false;
+            errors.add(fieldName + " should be in dd/mm/yyyy format with correct date");
+            return this;
         }
     }
 }

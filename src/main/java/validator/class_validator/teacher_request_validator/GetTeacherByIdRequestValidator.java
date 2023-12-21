@@ -17,7 +17,7 @@ public class GetTeacherByIdRequestValidator implements IClassValidator<GetTeache
     @Override
     public List<String> validate(GetTeacherByIdRequest request) {
         var list = new ArrayList<String>();
-        if (!idValidator.validate(request.getId())) list.add("Id should be >= 0");
+        idValidator.isPositive(request.getId(), list, "Id");
         return list;
     }
 }
