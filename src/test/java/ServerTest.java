@@ -42,7 +42,7 @@ public class ServerTest {
                 .readValue(addStudentAnswer, new TypeReference<ResponseEntity<AuxiliaryResponseEntity<AddStudentResponse>>>() {})
                 .getResponse().getResponse().getId();
 
-        //Act - Get Added Student By Id
+        //Act - Get Added Student By ID
         GetStudentByIdRequest getStudentByIdRequest = new GetStudentByIdRequest(id);
         String jsonGetStudentRequest = objectMapper.writeValueAsString(getStudentByIdRequest);
         var getStudentAnswer = server.accept("getStudentById", jsonGetStudentRequest);
@@ -88,7 +88,7 @@ public class ServerTest {
         //Check - Successfully Added
         assertEquals(200, editStudentResponse.getStatus());
 
-        //Act - Get Edited Student By Id
+        //Act - Get Edited Student By ID
         GetStudentByIdRequest getStudentByIdRequest = new GetStudentByIdRequest(id);
         String jsonGetStudentRequest = objectMapper.writeValueAsString(getStudentByIdRequest);
         var getStudentAnswer = server.accept("getStudentById", jsonGetStudentRequest);
@@ -134,7 +134,7 @@ public class ServerTest {
         //Check - Successfully Deleted
         assertEquals(200, deleteStudentResponse.getStatus());
 
-        //Act - Get Deleted Student By Id
+        //Act - Get Deleted Student By ID
         GetStudentByIdRequest getStudentByIdRequest = new GetStudentByIdRequest(id);
         String jsonGetStudentRequest = objectMapper.writeValueAsString(getStudentByIdRequest);
         var getStudentAnswer = server.accept("getStudentById", jsonGetStudentRequest);
