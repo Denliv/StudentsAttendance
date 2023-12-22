@@ -22,7 +22,6 @@ public class Server {
     private void init() {
         ObjectMapper objectMapper = new ObjectMapper();
         this.processes = new HashMap<>();
-        this.dataBase = new DataBase();
         processes.put("addStudent", json -> {
             StudentController controller = new StudentController(
                     new AddStudentRequestValidator(new StatusValidator(), new NameValidator(), new IdValidator()),
@@ -157,6 +156,12 @@ public class Server {
     }
 
     public Server() {
+        this.dataBase = new DataBase();
+        init();
+    }
+
+    public Server(DataBase dataBase) {
+        this.dataBase = dataBase;
         init();
     }
 
